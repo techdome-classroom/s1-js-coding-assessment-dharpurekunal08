@@ -1,36 +1,45 @@
-function isValid(s) {
-    // Dictionary to hold matching pairs
-    const matchingParentheses = {
-        ')': '(',
-        '}': '{',
-        ']': '['
-    };
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function(s) {
     
-    // Stack to hold opening brackets
-    const stack = [];
-    
-    // Traverse through each character in the string
-    for (let char of s) {
-        // If it's a closing bracket
-        if (char in matchingParentheses) {
-            // Pop the top of the stack if it's not empty, otherwise assign dummy value '#'
-            const topElement = stack.length > 0 ? stack.pop() : '#';
-            
-            // Check if the popped element matches the corresponding opening bracket
-            if (matchingParentheses[char] !== topElement) {
-                return false;
+      
+        const matchingParentheses = {
+            ')': '(',
+            '}': '{',
+            ']': '['
+        };
+        
+       
+        const stack = [];
+        
+       
+        for (let char of s) {
+           
+            if (char in matchingParentheses) {
+
+                const topElement = stack.length > 0 ? stack.pop() : '#';
+                
+               
+                if (matchingParentheses[char] !== topElement) {
+                    return false;
+                }
+            } else {
+                
+                stack.push(char);
             }
-        } else {
-            // It's an opening bracket, push onto the stack
-            stack.push(char);
         }
+        
+        
+        return stack.length === 0;
     }
     
-    // In the end, stack should be empty if all parentheses are valid
-    return stack.length === 0;
-}
+   
+    console.log(isValid("()"));
+    console.log(isValid("()[]{}"));   
+    console.log(isValid("(]"));       
+    
 
-// Example usage:
-console.log(isValid("()"));       // Output: true
-console.log(isValid("()[]{}"));   // Output: true
-console.log(isValid("(]"));       // Output: false
+
+module.exports = { isValid };
